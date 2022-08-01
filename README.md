@@ -1,6 +1,8 @@
 # @bacons/css-to-expo-linear-gradient
 
-Convert a CSS linear gradient function to `expo-linear-gradient` props
+> Demo: [snack](https://snack.expo.dev/@bacon/bacons-css-to-expo-linear-gradient)
+
+Convert a CSS linear gradient function to `expo-linear-gradient` props.
 
 ## Add the package to your npm dependencies
 
