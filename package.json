@@ -1,0 +1,32 @@
+{
+  "name": "@bacons/css-to-expo-linear-gradient",
+  "version": "1.0.0",
+  "description": "Convert a CSS linear gradient function to expo-linear-gradient props",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "expo-module build",
+    "clean": "expo-module clean",
+    "lint": "expo-module lint",
+    "test": "expo-module test",
+    "prepare": "expo-module prepare",
+    "prepublishOnly": "expo-module prepublishOnly",
+    "expo-module": "expo-module"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evanbacon/css-to-expo-linear-gradient.git"
+  },
+  "peerDependencies": {
+    "react-native": "*"
+  },
+  "keywords": [
+    "expo",
+    "expo-linear-gradient",
+    "react-native"
+  ],
+  "author": "Evan Bacon",
+  "license": "MIT",
+  "devDependencies": {
+    "expo-module-scripts": "^2.0.0"
+  }
+}
