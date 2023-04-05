@@ -45,7 +45,7 @@ const parseGradient = (
         args,
         method,
         prefix,
-    }: { args: Array<string>; method: string; prefix: string },
+    }: { args: Array<string>; method: string; prefix?: string },
     bounds: Bounds
 ) => {
     if (method === "linear-gradient") {
@@ -243,12 +243,44 @@ const transformObsoleteColorStops = (args: Array<string>): string[] => {
  * ```
  */
 export function fromCSS(str: string) {
-    const values = str.match(/([a-zA-Z0-9_-]+)\((.*)\).*/);
-    if (!values) throw new Error("Invalid CSS Gradient function: " + str);
+    if (str.endsWith(";")) {
+        str = str.slice(0, -1);
+    }
+    const values = str?.match(/([a-zA-Z0-9_-]+)\((.*)\).*/);
+    if (!values) {
+        console.error("Invalid CSS gradient string: " + str);
+        return {};
+    }
 
     const [, method, argString] = values;
-    const args = argString.split(",").map((v) => v.trim());
+    const args: string[] = [];
+
+    let buffer = "";
+    let openParens = 0;
+
+    for (let i = 0; i < argString.length; i++) {
+        const char = argString[i];
+
+        if (char === "," && openParens === 0) {
+            args.push(buffer.trim());
+            buffer = "";
+        } else {
+            buffer += char;
+            if (char === "(") {
+                openParens++;
+            } else if (char === ")") {
+                openParens--;
+            }
+        }
+    }
+    args.push(buffer.trim());
+
     return parseGradient(
-        // @ts-expect-error
-        { args, method }, { width: 1, height: 1 });
+        {
+            args,
+            method,
+        },
+        { width: 1, height: 1 }
+    );
 }
+
