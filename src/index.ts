@@ -96,6 +96,8 @@ const parseColorStops = (args: Array<string>, firstColorStopIndex: number) => {
         colors.push(color);
         locations.push(parsePosition(stop));
     });
+    
+    colors.reverse();
 
     return { colors, locations };
 };
