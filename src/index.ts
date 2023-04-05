@@ -247,10 +247,7 @@ export function fromCSS(str: string) {
         str = str.slice(0, -1);
     }
     const values = str?.match(/([a-zA-Z0-9_-]+)\((.*)\).*/);
-    if (!values) {
-        console.error("Invalid CSS gradient string: " + str);
-        return {};
-    }
+    if (!values) throw new Error("Invalid CSS Gradient function: " + str);
 
     const [, method, argString] = values;
     const args: string[] = [];
