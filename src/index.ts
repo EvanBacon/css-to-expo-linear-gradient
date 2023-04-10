@@ -13,7 +13,7 @@ const ANGLE = /([+-]?\d*\.?\d+)(deg|grad|rad|turn)/i;
 const SIDE_OR_CORNER =
     /^(to )?(left|top|right|bottom)( (left|top|right|bottom))?$/i;
 const PERCENTAGE_ANGLES = /^([+-]?\d*\.?\d+)% ([+-]?\d*\.?\d+)%$/i;
-const ENDS_WITH_LENGTH = /(px)|%|( 0)$/i;
+const ENDS_WITH_LENGTH = /(px)$|(%$)|( 0$)/;
 const FROM_TO_COLORSTOP =
     /^(from|to|color-stop)\((?:([\d.]+)(%)?,\s*)?(.+?)\)$/i;
 
@@ -80,7 +80,9 @@ const parseColorStops = (args: Array<string>, firstColorStopIndex: number) => {
                 ? "0%"
                 : i === args.length - 1
                     ? "100%"
-                    : null;
+                    :  // fallback to evenly spaced color stops
+                       // prettier-ignore
+                       `${((i - firstColorStopIndex) / (args.length - firstColorStopIndex - 1)) * 100}%`;
         colorStops.push({ color, stop });
     }
 
