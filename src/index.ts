@@ -101,7 +101,7 @@ const parseColorStops = (args: Array<string>, firstColorStopIndex: number) => {
     
     colors.reverse();
 
-    return { colors, locations };
+    return { colors, locations: locations.reverse() };
 };
 
 const parseLinearGradient = (
